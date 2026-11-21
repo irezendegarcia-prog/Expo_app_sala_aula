@@ -10,11 +10,11 @@ export function Cabecalho() {
     <View style={styles.cabecalho}>
 
       <Text style={styles.tituloCabecalho}>
-        The Web-site 
+        AdoteUmMiau 🐾
       </Text>
 
       <Text style={styles.subtituloCabecalho}>
-        Sing-in and suprise yourself
+        Encontre seu novo amigo de quatro patas
       </Text>
 
     </View>

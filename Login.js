@@ -27,14 +27,6 @@ export function Login() {
   const [senha, setSenha] = useState('');
   const [erroLogin, setErroLogin] = useState('');
 
-  
-  async function buscarCep (){
-     
-    const retorno = await fetch('https://viacep.com.br/ws/01001000/json/');
-    const result = await retorno.json();
-    console.log(result);
-  }
-
   async function fazerLogin() {
     setErroLogin('');
     try {
@@ -70,7 +62,7 @@ export function Login() {
 
 
           <Text style={styles.subtitulo}>
-            Faça o login para se surpreender!
+            Faça login para conhecer os gatinhos disponíveis para adoção!
           </Text>
           
           <View style={styles.formulario}>
@@ -123,19 +115,6 @@ export function Login() {
               >
                 <Text style={styles.textoCriarConta}>Criar uma conta</Text>
               </TouchableOpacity>
-            
-              <TouchableOpacity style={styles.botao} onPress={buscarCep}>
-                <Text style={{ color: '#FFFF', textAlign: 'center' }}>Buscar Cep</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{backgroundColor: 'black'}}
-                onPress={() => navigation.navigate('camera')}
-              >
-                <Text style={{color: '#FFFF', textAlign: 'center'}}>
-                  Acessar Câmera
-                </Text>
-              </TouchableOpacity>
             </View>
           </View>
 
@@ -152,7 +131,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    minHeight: '100vh',
     backgroundColor: '#f6efef',
   },
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from './firebase';
 import {
@@ -17,7 +17,18 @@ export default function Cadastro({ navigation }){
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [enviando, setEnviando] = useState(false);
+  const [contaCriada, setContaCriada] = useState(null);
   const cadastroEmAndamento = useRef(false);
+
+  // useEffect para exibir o Alert quando o cadastro for salvo no useState e navegar com navigation.navigate
+  useEffect(() => {
+    if (contaCriada) {
+      mostrarAlerta('Cadastro criado', contaCriada.mensagem);
+      navigation.navigate('Home', {
+        textoElemento: `Bem-vindo(a), ${contaCriada.nome}! Escolha um gatinho abaixo para adotar!`,
+      });
+    }
+  }, [contaCriada]);
 
   function mostrarAlerta(titulo, mensagem) {
     if (Platform.OS === 'web') {
@@ -45,8 +56,7 @@ export default function Cadastro({ navigation }){
       } catch {
         mensagem += ' Não foi possível salvar seu nome no perfil.';
       }
-      mostrarAlerta('Cadastro criado', mensagem);
-      navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
+      setContaCriada({ nome: nome.trim(), email: email.trim(), mensagem });
     } catch (erro) {
       const mensagens = {
         'auth/email-already-in-use': 'Este e-mail já está cadastrado. Entre pela tela de login.',
@@ -61,6 +71,14 @@ export default function Cadastro({ navigation }){
     } finally {
       cadastroEmAndamento.current = false;
       setEnviando(false);
+    }
+  }
+
+  function voltarParaLogin() {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('Login');
     }
   }
 
@@ -109,6 +127,15 @@ export default function Cadastro({ navigation }){
           title={enviando ? 'Criando conta...' : 'Confirmar'}
           disabled={enviando}
           onPress={finalizarCadastro}
+        />
+      </View>
+
+      <View style={styles.botao}>
+        <Button
+          color="#555"
+          title="Voltar ao Login"
+          disabled={enviando}
+          onPress={voltarParaLogin}
         />
       </View>
     </ScrollView>

@@ -1,10 +1,11 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Login } from './Login';
 import { Home } from './Home';
 import Cadastro from './Cadastro';
-import { Camera } from './camera';
+import { CadastrarGato } from './camera';
 
 const Stack = createStackNavigator();
 
@@ -42,8 +43,11 @@ export default function App() {
         />
 
         <Stack.Screen 
-          name="camera"
-          component={Camera}
+          name="CadastrarGato"
+          component={CadastrarGato}
+          options={{
+            title: 'Cadastrar Gato para Adoção',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
