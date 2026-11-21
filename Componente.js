@@ -4,6 +4,7 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
+import { cores } from './tema';
 
 export function Cabecalho() {
   return (
@@ -32,7 +33,7 @@ export function CompenenteLogin(props) {
       <TextInput
         style={styles.input}
         placeholder="Informe sua data de nascimento"
-        placeholderTextColor="#555"
+        placeholderTextColor={cores.placeholder}
         keyboardType="numeric"
       />
 
@@ -51,65 +52,58 @@ export function ElementoHome(props) {
 }
 
 const styles = StyleSheet.create({
-
   cabecalho: {
     width: '100%',
     paddingTop: 50,
     paddingBottom: 15,
     paddingHorizontal: 20,
-    backgroundColor: '#f6efef',
+    backgroundColor: cores.preto,
     alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: cores.roxo,
   },
-
   tituloCabecalho: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
   },
-
   subtituloCabecalho: {
     fontSize: 14,
-    color: '#555',
+    color: cores.roxoClaro,
     marginTop: 4,
   },
-
   campo: {
     width: '100%',
     marginTop: 5,
     marginBottom: 10,
   },
-
   label: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
     marginBottom: 5,
   },
-
   input: {
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: cores.roxo,
     marginBottom: 10,
     paddingHorizontal: 10,
     height: 45,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: cores.pretoCard,
     borderRadius: 5,
-    color: 'black',
+    color: cores.branco,
   },
-
   elementoHome: {
     marginTop: 20,
     padding: 15,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: cores.roxoEscuro,
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: cores.dourado,
   },
-
   textoElementoHome: {
     fontSize: 16,
-    color: 'black',
+    color: cores.branco,
     textAlign: 'center',
   },
-
 });

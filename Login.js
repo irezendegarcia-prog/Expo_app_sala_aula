@@ -4,19 +4,19 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   ScrollView,
   Image,
   TouchableOpacity,
 } from 'react-native';
 
-import {signInWithEmailAndPassword} from 'firebase/auth';
-import {auth} from './firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebase'
 import { useState } from 'react';
-import {Cabecalho,} from './Componente';
+import { Cabecalho, } from './Componente';
 
 import { useNavigation } from '@react-navigation/native';
+import { cores } from './tema';
 
 const imagemGatinho = `https://cataas.com/cat?width=260&height=260&random=${Date.now()}`;
 
@@ -40,12 +40,12 @@ export function Login() {
   return (
     <View style={styles.container}>
 
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
 
-      
+
       <Cabecalho />
 
-      
+
       <View style={styles.areaScroll}>
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -64,10 +64,10 @@ export function Login() {
           <Text style={styles.subtitulo}>
             Faça login para conhecer os gatinhos disponíveis para adoção!
           </Text>
-          
+
           <View style={styles.formulario}>
 
-           
+
             <Text style={styles.label}>
               E-mail
             </Text>
@@ -77,13 +77,13 @@ export function Login() {
               onChangeText={setLogin}
               value={login}
               placeholder="Digite seu e-mail"
-              placeholderTextColor="#555"
+              placeholderTextColor={cores.placeholder}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
             />
 
-           
+
             <Text style={styles.label}>
               Senha
             </Text>
@@ -91,22 +91,24 @@ export function Login() {
             <TextInput
               style={styles.input}
               placeholder="Digite sua senha"
-              placeholderTextColor="#555"
+              placeholderTextColor={cores.placeholder}
               onChangeText={setSenha}
               value={senha}
               secureTextEntry
             />
 
-            {erroLogin ? <Text accessibilityRole="alert">{erroLogin}</Text> : null}
+            {erroLogin ? <Text accessibilityRole="alert" style={styles.erro}>{erroLogin}</Text> : null}
 
             <View style={styles.botao}>
-              <Button
-                color="black"
+              <TouchableOpacity
+                style={styles.botaoPrimario}
+                accessibilityRole="button"
                 onPress={fazerLogin}
-                title="Login "
-              />
+              >
+                <Text style={styles.textoBotaoPrimario}>Login</Text>
+              </TouchableOpacity>
             </View>
-            
+
             <View style={styles.botao}>
               <TouchableOpacity
                 style={styles.criarConta}
@@ -128,110 +130,102 @@ export function Login() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: '#f6efef',
+    backgroundColor: cores.preto,
   },
-
-
   areaScroll: {
     flex: 1,
     minHeight: 0,
     width: '100%',
   },
-
   scroll: {
     flex: 1,
     width: '100%',
   },
-
-
   scrollContent: {
     alignItems: 'center',
     paddingTop: 30,
     paddingBottom: 100,
     paddingHorizontal: 20,
-
-
     flexGrow: 1,
   },
-
-  /*
-   * IMAGEM
-   */
   imagem: {
     width: 220,
     height: 220,
     borderRadius: 110,
     marginBottom: 20,
+    borderWidth: 3,
+    borderColor: cores.dourado,
   },
-
-
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
     marginBottom: 8,
   },
-
   subtitulo: {
     fontSize: 16,
-    color: '#333',
+    color: cores.roxoClaro,
     textAlign: 'center',
     marginBottom: 20,
     maxWidth: 400,
   },
-
-
   formulario: {
     width: '100%',
     maxWidth: 400,
   },
-
-
   label: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
     marginBottom: 5,
   },
-
-  
   input: {
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: cores.roxo,
     marginBottom: 15,
     paddingHorizontal: 10,
     height: 45,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: cores.pretoCard,
     borderRadius: 5,
-    color: 'black',
+    color: cores.branco,
     width: '100%',
   },
-
-
+  erro: {
+    color: cores.dourado,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
   botao: {
     marginTop: 15,
     borderRadius: 5,
     overflow: 'hidden',
   },
-
-
-  criarConta: {
-    backgroundColor: 'black',
+  botaoPrimario: {
+    backgroundColor: cores.dourado,
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
   },
-
+  textoBotaoPrimario: {
+    color: cores.preto,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  criarConta: {
+    backgroundColor: cores.roxo,
+    borderWidth: 2,
+    borderColor: cores.dourado,
+    padding: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
   textoCriarConta: {
-    color: 'white',
+    color: cores.branco,
     fontWeight: 'bold',
   },
-
   espacoFinal: {
     height: 200,
   },
-
 });

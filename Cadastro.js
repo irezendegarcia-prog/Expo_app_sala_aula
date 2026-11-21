@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from './firebase';
+import { cores } from './tema';
 import {
   View,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
   Alert,
   StyleSheet,
   ScrollView,
   Platform,
 } from 'react-native';
 
-export default function Cadastro({ navigation }){
+export default function Cadastro({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -82,107 +83,132 @@ export default function Cadastro({ navigation }){
     }
   }
 
- return (
-  <View style={styles.container}>
-    <ScrollView contentContainerStyle={styles.conteudo}>
-      <Text style={styles.titulo}>Tela de Cadastro</Text>
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.conteudo}>
+        <Text style={styles.titulo}>Tela de Cadastro</Text>
 
-      <Text style={styles.label}>Nome</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setNome}
-        value={nome}
-        editable={!enviando}
-        placeholder="Digite seu nome"
-        placeholderTextColor="#555"
-      />
-
-      <Text style={styles.label}>E-mail</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmail}
-        value={email}
-        editable={!enviando}
-        autoCorrect={false}
-        placeholder="Digite seu e-mail"
-        placeholderTextColor="#555"
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-
-      <Text style={styles.label}>Senha</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setSenha}
-        value={senha}
-        editable={!enviando}
-        placeholder="Digite sua senha"
-        placeholderTextColor="#555"
-        secureTextEntry
-      />
-
-      <View style={styles.botao}>
-        <Button
-          color="black"
-          title={enviando ? 'Criando conta...' : 'Confirmar'}
-          disabled={enviando}
-          onPress={finalizarCadastro}
+        <Text style={styles.label}>Nome</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setNome}
+          value={nome}
+          editable={!enviando}
+          placeholder="Digite seu nome"
+          placeholderTextColor={cores.placeholder}
         />
-      </View>
 
-      <View style={styles.botao}>
-        <Button
-          color="#555"
-          title="Voltar ao Login"
-          disabled={enviando}
-          onPress={voltarParaLogin}
+        <Text style={styles.label}>E-mail</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setEmail}
+          value={email}
+          editable={!enviando}
+          autoCorrect={false}
+          placeholder="Digite seu e-mail"
+          placeholderTextColor={cores.placeholder}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
-      </View>
-    </ScrollView>
-  </View>
-);
+
+        <Text style={styles.label}>Senha</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setSenha}
+          value={senha}
+          editable={!enviando}
+          placeholder="Digite sua senha"
+          placeholderTextColor={cores.placeholder}
+          secureTextEntry
+        />
+
+        <View style={styles.botao}>
+          <TouchableOpacity
+            style={[styles.botaoPrimario, enviando && styles.botaoDesativado]}
+            disabled={enviando}
+            onPress={finalizarCadastro}
+          >
+            <Text style={styles.textoBotaoPrimario}>
+              {enviando ? 'Criando conta...' : 'Confirmar'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.botao}>
+          <TouchableOpacity
+            style={[styles.botaoSecundario, enviando && styles.botaoDesativado]}
+            disabled={enviando}
+            onPress={voltarParaLogin}
+          >
+            <Text style={styles.textoBotaoSecundario}>Voltar ao Login</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6efef',
+    backgroundColor: cores.preto,
   },
-
   conteudo: {
     padding: 20,
     paddingBottom: 40,
   },
-
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
     marginBottom: 20,
     textAlign: 'center',
   },
-
   label: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
+    color: cores.dourado,
     marginBottom: 5,
   },
-
   input: {
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: cores.roxo,
     marginBottom: 15,
     paddingHorizontal: 10,
     height: 45,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: cores.pretoCard,
     borderRadius: 5,
-    color: 'black',
+    color: cores.branco,
   },
-
   botao: {
     marginTop: 15,
     borderRadius: 5,
     overflow: 'hidden',
+  },
+  botaoPrimario: {
+    backgroundColor: cores.dourado,
+    padding: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  textoBotaoPrimario: {
+    color: cores.preto,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  botaoSecundario: {
+    backgroundColor: cores.roxo,
+    borderWidth: 2,
+    borderColor: cores.dourado,
+    padding: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  textoBotaoSecundario: {
+    color: cores.branco,
+    fontWeight: 'bold',
+  },
+  botaoDesativado: {
+    opacity: 0.5,
   },
 });
